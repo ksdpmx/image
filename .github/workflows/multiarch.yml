@@ -27,7 +27,9 @@ jobs:
           | awk -F '/' '{print $1}' \
           | sort -u \
           | jq -R -s -c 'split("\n")[:-1]')
-        echo "repos=$repos"
+        if [[ -z "$repos" || "$repos" == "[]" ]]; then
+          repos="[]"
+        fi
         echo "repos=$repos" >> "$GITHUB_OUTPUT"
   build:
     name: Build and push Docker images
@@ -36,7 +38,7 @@ jobs:
     if: needs.gitcommit.outputs.repos != '[]'
     strategy:
       matrix:
-        repo: ${{ fromJson(needs.gitcommit.outputs.repos) }}
+        repo: ${{ fromJson(needs.gitcommit.outputs.repos || '[]') }}
     steps:
     - name: checkout code
       uses: actions/checkout@v4
