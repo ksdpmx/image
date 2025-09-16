@@ -15,6 +15,10 @@ jobs:
     name: Detect git changes
     runs-on: ubuntu-latest
     steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: get all changed images
       id: repos
       run: |
