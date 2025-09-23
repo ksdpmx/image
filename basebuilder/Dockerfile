@@ -11,6 +11,7 @@ RUN apt-get update && \
       git \
       gnupg \
       build-essential \
+      clang \
       autoconf \
       automake \
       libtool \
