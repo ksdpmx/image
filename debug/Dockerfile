@@ -11,7 +11,7 @@ RUN apt-get update && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
-  if [[ ${TARGETARCH} == "amd64" ]]; then echo "${SHA256SUM_AMD64}  crictl-${VERSION}-linux-${TARGETARCH}.tar.gz"; else echo "${SHA256SUM_ARM64}  crictl-${VERSION}-linux-${TARGETARCH}.tar.gz"; fi && \
+  if [[ ${TARGETARCH} == "amd64" ]]; then echo "${SHA256SUM_AMD64}  crictl-${VERSION}-linux-${TARGETARCH}.tar.gz"; else echo "${SHA256SUM_ARM64}  crictl-${VERSION}-linux-${TARGETARCH}.tar.gz"; fi \
   | sha256sum -c - && \
   tar zxvf crictl-$VERSION-linux-${TARGETARCH}.tar.gz
 
