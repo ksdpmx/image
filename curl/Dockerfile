@@ -17,6 +17,8 @@ RUN curl -LO https://github.com/curl/curl/releases/download/curl-$(echo $VERSION
       --disable-verbose \
       --disable-unity \
       --with-openssl \
+      --enable-http \
+      --disable-ftp \
       --enable-unix-sockets \
       --disable-ipv6 \
       --without-libpsl \
