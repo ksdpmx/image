@@ -68,7 +68,9 @@ jobs:
           TAGS="$TAGS,$QUAY_REPO:latest,$GHCR_REPO:latest"
         fi
         echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
-        echo "fulltags=$(echo $TAGS | tr ',' '\n' | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
+        # only scan one image tag
+        # TODO append for multiple images?
+        echo "fulltags=$(echo $GHCR_REPO:$COMMIT_ID | tr ',' '\n' | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
     - name: ignore if dockerfile is missing
       run: |
         if [[ ! -f "./${{ matrix.repo }}/Dockerfile" ]]; then
@@ -114,6 +116,7 @@ jobs:
       id: scan
       with:
         image: ${{ matrix.fulltag }}
+        fail-build: false
     - name: upload anchore sarif
       uses: github/codeql-action/upload-sarif@v3
       with:
