@@ -1,8 +1,10 @@
 FROM --platform=${BUILDPLATFORM} docker.io/debian:sid-slim AS builder
 
 ARG TARGETARCH
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
 ARG VERSION="v1.34.1"
 
+SHELL ["/bin/bash", "-c"]
 WORKDIR /
 RUN apt-get update && \
   apt-get install -y --no-install-recommends ca-certificates curl && \
@@ -28,4 +30,4 @@ RUN apt-get update && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT [ "/usr/local/bin/kubectl" ]
+ENTRYPOINT ["/usr/local/bin/kubectl"]
