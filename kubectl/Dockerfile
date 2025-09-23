@@ -15,7 +15,7 @@ RUN curl -LO "https://dl.k8s.io/release/${VERSION}/bin/linux/${TARGETARCH}/kubec
   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check && \
   chmod +x kubectl
 
-FROM ghcr.io/ksdpmx/curl:8845b1d AS curl
+FROM ghcr.io/ksdpmx/curl:6af1a00 AS curl
 
 FROM docker.io/debian:sid-slim
 
