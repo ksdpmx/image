@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} docker.io/debian:sid-slim AS builder
+FROM docker.io/debian:sid-slim AS crictl
 
 ARG TARGETARCH
 # https://github.com/kubernetes-sigs/cri-tools?tab=readme-ov-file#install
@@ -17,15 +17,17 @@ RUN curl -LO "https://github.com/kubernetes-sigs/cri-tools/releases/download/${V
   | sha256sum -c - && \
   tar zxvf crictl-$VERSION-linux-${TARGETARCH}.tar.gz
 
+FROM ghcr.io/ksdpmx/curl:6af1a00 AS curl
+
 FROM docker.io/debian:sid-slim
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
-COPY --from=builder /crictl /usr/local/bin/crictl
+COPY --from=crictl /crictl /usr/local/bin/crictl
+COPY --from=curl /usr/local/bin/curl /usr/local/bin/curl
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     ca-certificates \
-    curl \
     less \
     ripgrep \
     file \
@@ -49,4 +51,3 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/bin/bash"]
-#
