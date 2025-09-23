@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} docker.io/debian:sid-slim
+FROM docker.io/debian:sid-slim
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
