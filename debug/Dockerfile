@@ -1,6 +1,7 @@
 FROM --platform=${BUILDPLATFORM} docker.io/debian:sid-slim AS builder
 
 ARG TARGETARCH
+# https://github.com/kubernetes-sigs/cri-tools?tab=readme-ov-file#install
 ARG VERSION="v1.34.0"
 ARG SHA256SUM_AMD64="a8ff2a3edb37a98daf3aba7c3b284fe0aa5bff24166d896ab9ef64c8913c9f51"
 ARG SHA256SUM_ARM64="c31d252e203df5f4cf37f314bd3092eb79087e791631c1e607087c74b6d0423f"
