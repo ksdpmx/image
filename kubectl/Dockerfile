@@ -17,19 +17,11 @@ RUN curl -LO "https://dl.k8s.io/release/${VERSION}/bin/linux/${TARGETARCH}/kubec
 
 FROM ghcr.io/ksdpmx/curl:6af1a00 AS curl
 
-FROM docker.io/debian:sid-slim
+FROM gcr.io/distroless/static-debian12:debug
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
 COPY --from=kubectl /kubectl /usr/local/bin/kubectl
 COPY --from=curl /usr/local/bin/curl /usr/local/bin/curl
-RUN apt-get update && \
-  apt-get install -y --no-install-recommends \
-    ca-certificates \
-    less \
-    jq \
-    yq && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/usr/local/bin/kubectl"]
