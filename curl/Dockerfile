@@ -1,6 +1,8 @@
+ARG VERSION="8.16.0"
+
 FROM ghcr.io/ksdpmx/basebuilder:bc6922f AS builder
 
-ARG VERSION="8.16.0"
+ARG VERSION
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /root
@@ -30,6 +32,9 @@ RUN curl -LO https://github.com/curl/curl/releases/download/curl-$(echo $VERSION
 
 FROM gcr.io/distroless/static-debian12:debug
 
+ARG VERSION
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
 COPY --from=builder /root/curl-${VERSION}/src/curl /usr/local/bin/curl
+
+ENTRYPOINT ["/usr/local/bin/curl"]
