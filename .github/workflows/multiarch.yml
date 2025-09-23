@@ -6,6 +6,8 @@ on:
     - '**'
     paths-ignore:
     - ".github/**"
+    - ".editorconfig"
+    - ".gitignore"
   pull_request:
     branches:
     - '**'
@@ -36,9 +38,11 @@ jobs:
         fi
         echo "repos=$repos" >> "$GITHUB_OUTPUT"
   build:
-    name: Build and push Docker images
+    name: Build and push images
     needs: gitcommit
     runs-on: ubuntu-latest
+    outputs:
+      fulltags: ${{ steps.tags.outputs.fulltags }}
     if: needs.gitcommit.outputs.repos != '[]'
     strategy:
       matrix:
@@ -51,7 +55,7 @@ jobs:
     - name: set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: generate tags
-      id: vars
+      id: tags
       run: |
         repo=${{ matrix.repo }}
         QUAY_REPO="quay.io/zhangj30_lnlp/$repo"
@@ -64,6 +68,7 @@ jobs:
           TAGS="$TAGS,$QUAY_REPO:latest,$GHCR_REPO:latest"
         fi
         echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+        echo "fulltags=$(echo $TAGS | tr ',' '\n' | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
     - name: ignore if dockerfile is missing
       run: |
         if [[ ! -f "./${{ matrix.repo }}/Dockerfile" ]]; then
@@ -90,6 +95,26 @@ jobs:
         pull: true
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ${{ steps.vars.outputs.tags }}
+        tags: ${{ steps.tags.outputs.tags }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+  scan:
+    name: Scan images
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    if: needs.build.outputs.fulltags != '[]'
+    strategy:
+      matrix:
+        fulltag: ${{ fromJson(needs.build.outputs.fulltags || '[]') }}
+    steps:
+    - name: scan images
+      uses: anchore/scan-action@v6
+      id: scan
+      with:
+        image: ${{ matrix.fulltag }}
+    - name: upload anchore sarif
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ steps.scan.outputs.sarif }}
