@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} docker.io/debian:sid-slim AS builder
+FROM docker.io/debian:sid-slim AS builder
 
 WORKDIR /
 RUN apt-get update && \
