@@ -7,7 +7,7 @@ ARG SHA256SUM_ARM64="c31d252e203df5f4cf37f314bd3092eb79087e791631c1e607087c74b6d
 
 WORKDIR /
 RUN apt-get update && \
-  apt-get install -y --no-install-recommends ca-certificates wget && \
+  apt-get install -y --no-install-recommends ca-certificates curl && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 RUN curl -LO https://github.com/kubernetes-sigs/cri-tools/releases/download/${VERSION}/crictl-${VERSION}-linux-${TARGETARCH}.tar.gz && \
