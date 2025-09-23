@@ -12,6 +12,7 @@ RUN apt-get update && \
     strace \
     lsof \
     iptables \
+    nftables \
     iproute2 \
     ipset \
     bridge-utils \
