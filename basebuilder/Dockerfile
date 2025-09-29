@@ -11,14 +11,22 @@ RUN apt-get update && \
       git \
       gnupg \
       build-essential \
-      clang \
+      clang clang-format libclang-dev libclang-cpp-dev \
+      cmake \
       autoconf \
       automake \
+      llvm llvm-dev \
       libtool \
       binutils \
       pkg-config \
+      linux-libc-dev \
       libssl-dev \
       libzstd-dev \
-      zlib1g-dev && \
+      zip \
+      zlib1g-dev \
+      flex bison \
+      dpkg-dev \
+      python3-pip \
+      python3-setuptools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
