@@ -19,13 +19,13 @@ RUN apt-get update && \
       python3-pyroute2 \
       libpolly-19-dev \
       libelf1t64 && \
-    git clone --depth 1 https://github.com/iovisor/bcc && \
+    git clone https://github.com/iovisor/bcc && \
     mkdir bcc/build; cd bcc/build && \
     cmake .. \
       -DENABLE_EXAMPLES=OFF \
       -DENABLE_LLVM_SHARED=OFF \
       -DENABLE_MAN=OFF \
-      -DENABLE_USDT=OFF \
+      -DENABLE_USDT=ON \
       -DENABLE_TESTS=OFF && \
     make -j$(nproc) bcc-shared && \
     cd src/python/bcc-python3 && \

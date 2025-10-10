@@ -52,6 +52,9 @@ spec:
         - mountPath: /sys/kernel/debug
           name: syskerneldebug
           readOnly: true
+        - mountPath: /host/proc
+          name: proc
+          readOnly: true
       hostIPC: true
       hostNetwork: true
       hostPID: true
@@ -68,3 +71,7 @@ spec:
           path: /sys/kernel/debug
           type: Directory
         name: syskerneldebug
+      - hostPath:
+          path: /proc
+          type: Directory
+        name: proc
