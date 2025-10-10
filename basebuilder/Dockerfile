@@ -13,8 +13,7 @@ RUN apt-get update && \
       build-essential \
       clang clang-format libclang-dev libclang-cpp-dev \
       cmake \
-      autoconf \
-      automake \
+      autoconf automake \
       llvm llvm-dev \
       libtool \
       binutils \
@@ -22,7 +21,7 @@ RUN apt-get update && \
       linux-libc-dev \
       libssl-dev \
       libzstd-dev \
-      zip \
+      zip libzip-dev \
       zlib1g-dev \
       flex bison \
       dpkg-dev \
