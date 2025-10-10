@@ -35,7 +35,7 @@ COPY --from=builder /wheels /wheels
 COPY --from=builder /root/bcc/build/src/cc/libbcc*.a* /root/bcc/build/src/cc/libbcc*.so* /usr/local/lib/
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bpfcc-tools libbpfcc libbpfcc-dev && \
+    apt-get install -y --no-install-recommends bpfcc-tools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     cd /wheels && \
