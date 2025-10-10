@@ -36,6 +36,8 @@ spec:
             add:
             - NET_ADMIN
             - SYS_ADMIN
+            # - CAP_BPF
+            # - CAP_PERFMON
           privileged: true
           runAsGroup: 0
           runAsNonRoot: false
