@@ -25,7 +25,7 @@ RUN apt-get update && \
       -DENABLE_EXAMPLES=OFF \
       -DENABLE_LLVM_SHARED=OFF \
       -DENABLE_MAN=OFF \
-      -DENABLE_USDT=ON \
+      -DENABLE_USDT=OFF \
       -DENABLE_TESTS=OFF && \
     make -j$(nproc) bcc-shared && \
     cd src/python/bcc-python3 && \
@@ -37,7 +37,6 @@ FROM docker.io/debian:sid-slim
 
 COPY --from=builder /wheels /wheels
 # links are not preserved, but it won't break anything
-# where's USDT support?
 COPY --from=builder /root/bcc/build/src/cc/libbcc*.a* /root/bcc/build/src/cc/libbcc*.so* /usr/local/lib/
 
 RUN apt-get update && \
@@ -54,7 +53,6 @@ RUN apt-get update && \
 
 # COPY --from=builder /wheels /wheels
 # # links are not preserved, but it won't break anything
-# # TODO where's USDT support?
 # COPY --from=builder \
 #   /root/bcc/build/src/cc/libbcc*.a* /root/bcc/build/src/cc/libbcc*.so* \
 #   /usr/lib/*/libelf*.a* /usr/lib/*/libelf*.so* \
