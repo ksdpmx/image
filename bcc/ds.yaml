@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    purpose: bcc
+  name: bcc
+  namespace: 5064-operations
+spec:
+  selector:
+    matchLabels:
+      purpose: bcc
+  template:
+    metadata:
+      labels:
+        purpose: bcc
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: deployment.group
+                operator: In
+                values:
+                - operations
+      containers:
+      - command:
+        - tail
+        - -f
+        image: ghcr.io/ksdpmx/bcc:latest
+        imagePullPolicy: Always
+        name: bcc
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_ADMIN
+          privileged: true
+          runAsGroup: 0
+          runAsNonRoot: false
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /usr/src/kernels
+          name: usrsrckernels
+          readOnly: true
+        - mountPath: /lib/modules
+          name: libmodules
+          readOnly: true
+        - mountPath: /sys/kernel/debug
+          name: syskerneldebug
+          readOnly: true
+      hostIPC: true
+      hostNetwork: true
+      hostPID: true
+      volumes:
+      - hostPath:
+          path: /usr/src/kernels
+          type: Directory
+        name: usrsrckernels
+      - hostPath:
+          path: /lib/modules
+          type: Directory
+        name: libmodules
+      - hostPath:
+          path: /sys/kernel/debug
+          type: Directory
+        name: syskerneldebug
