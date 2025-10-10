@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    purpose: debug
+  name: debug
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      purpose: debug
+  template:
+    metadata:
+      labels:
+        purpose: debug
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: deployment.group
+                operator: In
+                values:
+                - foobar
+      containers:
+      - command:
+        - tail
+        - -f
+        image: ghcr.io/ksdpmx/debug:latest
+        imagePullPolicy: Always
+        name: debug
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_ADMIN
+          privileged: true
+          runAsGroup: 0
+          runAsNonRoot: false
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /host/sys
+          name: sys
+          readOnly: true
+        - mountPath: /host/proc
+          name: proc
+          readOnly: true
+        - mountPath: /host/var
+          name: var
+          readOnly: true
+        - mountPath: /host/run
+          name: run
+          readOnly: true
+        - mountPath: /host/etc
+          name: etc
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      hostIPC: true
+      hostNetwork: true
+      hostPID: true
+      restartPolicy: Always
+      volumes:
+      - hostPath:
+          path: /var
+          type: Directory
+        name: var
+      - hostPath:
+          path: /run
+          type: Directory
+        name: run
+      - hostPath:
+          path: /etc
+          type: Directory
+        name: etc
+      - hostPath:
+          path: /proc
+          type: Directory
+        name: proc
+      - hostPath:
+          path: /sys
+          type: Directory
+        name: sys
