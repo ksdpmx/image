@@ -4,10 +4,8 @@ on:
   push:
     branches:
     - '**'
-    paths-ignore:
-    - ".github/**"
-    - ".editorconfig"
-    - ".gitignore"
+    paths:
+    - '**/Dockerfile'
   pull_request:
     branches:
     - '**'
