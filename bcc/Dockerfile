@@ -19,7 +19,7 @@ RUN apt-get update && \
       python3-pyroute2 \
       libpolly-19-dev \
       libelf1t64 && \
-    git clone https://github.com/iovisor/bcc && \
+    git clone --depth 1 https://github.com/iovisor/bcc && \
     mkdir bcc/build; cd bcc/build && \
     cmake .. \
       -DENABLE_EXAMPLES=OFF \
