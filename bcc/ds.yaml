@@ -4,7 +4,7 @@ metadata:
   labels:
     purpose: bcc
   name: bcc
-  namespace: 5064-operations
+  namespace: default
 spec:
   selector:
     matchLabels:
@@ -22,7 +22,7 @@ spec:
               - key: deployment.group
                 operator: In
                 values:
-                - operations
+                - foobar
       containers:
       - command:
         - tail
