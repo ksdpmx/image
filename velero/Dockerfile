@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+ARG GITCOMMIT="7442d20"
+
 # Velero binary build section
 FROM --platform=$BUILDPLATFORM golang:1.25-bookworm AS velero-builder
 
@@ -25,8 +27,6 @@ ARG GIT_TREE_STATE
 ARG TARGETOS
 ARG TARGETARCH
 ARG TARGETVARIANT
-
-ARG GITCOMMIT="7442d20"
 
 ENV CGO_ENABLED=0 \
     GO111MODULE=on \
@@ -75,6 +75,7 @@ RUN mkdir -p /output/usr/bin && \
     export GOARM=$(echo "${GOARM}" | cut -c2-) && \
     git clone -b feature/aws-gp3-throughput https://github.com/ksdpmx/velero && \
     cd ./velero && \
+    git checkout ${GITCOMMIT} && \
     ./hack/build-restic.sh && \
     go clean -modcache -cache
 
