@@ -38,8 +38,6 @@ ENV CGO_ENABLED=0 \
 
 WORKDIR /go/src/github.com/vmware-tanzu
 
-#COPY . /go/src/github.com/vmware-tanzu/velero
-
 RUN mkdir -p /output/usr/bin && \
     export GOARM=$( echo "${GOARM}" | cut -c2-) && \
     git clone -b feature/aws-gp3-throughput https://github.com/ksdpmx/velero && \
