@@ -12,6 +12,6 @@ RUN git clone -b ${VERSION} --depth 1 https://github.com/gardener/etcd-backup-re
 
 FROM gcr.io/distroless/static-debian12:debug-nonroot
 
-COPY --from=builder /workspace/bin/etcdbrctl /etcdbrctl
+COPY --from=builder /workspace/etcd-backup-restore/bin/etcdbrctl /etcdbrctl
 WORKDIR /
 ENTRYPOINT ["/etcdbrctl"]
