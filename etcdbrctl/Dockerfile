@@ -3,14 +3,15 @@
 # SPDX-License-Identifier: Apache-2.0
 
 FROM golang:1.25.7 AS builder
+ARG VERSION="v0.42.0"
 
-WORKDIR /go/src/github.com/gardener/backup-restore
-COPY . .
+WORKDIR /workspace
+RUN git clone -b ${VERSION} --depth 1 https://github.com/gardener/etcd-backup-restore && \
+    cd ./etcd-backup-restore && \
+    make build
 
-RUN make build
+FROM gcr.io/distroless/static-debian12:debug-nonroot
 
-FROM gcr.io/distroless/static-debian12:debug-nonroot AS backup-restore
-
-COPY --from=builder /go/src/github.com/gardener/backup-restore/bin/etcdbrctl /etcdbrctl
+COPY --from=builder /workspace/bin/etcdbrctl /etcdbrctl
 WORKDIR /
 ENTRYPOINT ["/etcdbrctl"]
