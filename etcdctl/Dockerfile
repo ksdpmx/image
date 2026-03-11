@@ -12,4 +12,4 @@ LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
 COPY --from=builder /workspace/etcd/etcdctl/etcdctl /usr/local/bin/etcdctl
 
-ENTRYPOINT ["/usr/local/bin/kubectl"]
+ENTRYPOINT ["/usr/local/bin/etcdctl"]
