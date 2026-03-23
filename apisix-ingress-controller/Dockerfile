@@ -14,3 +14,4 @@ COPY --from=builder /workspace/apisix-ingress-controller/bin/apisix-ingress-cont
 
 ENTRYPOINT ["/app/apisix-ingress-controller"]
 CMD ["-c", "/app/conf/config.yaml"]
+# 1
