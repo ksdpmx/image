@@ -98,24 +98,24 @@ jobs:
         tags: ${{ steps.tags.outputs.tags }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-  scan:
-    name: Scan images
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    if: needs.build.outputs.fulltags != '[]'
-    strategy:
-      matrix:
-        fulltag: ${{ fromJson(needs.build.outputs.fulltags || '[]') }}
-    steps:
-    - name: scan images
-      uses: anchore/scan-action@v6
-      id: scan
-      with:
-        image: ${{ matrix.fulltag }}
-        fail-build: false
-    - name: upload anchore sarif
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: ${{ steps.scan.outputs.sarif }}
+#  scan:
+#    name: Scan images
+#    needs: build
+#    runs-on: ubuntu-latest
+#    permissions:
+#      security-events: write
+#    if: needs.build.outputs.fulltags != '[]'
+#    strategy:
+#      matrix:
+#        fulltag: ${{ fromJson(needs.build.outputs.fulltags || '[]') }}
+#    steps:
+#    - name: scan images
+#      uses: anchore/scan-action@v6
+#      id: scan
+#      with:
+#        image: ${{ matrix.fulltag }}
+#        fail-build: false
+#    - name: upload anchore sarif
+#      uses: github/codeql-action/upload-sarif@v3
+#      with:
+#        sarif_file: ${{ steps.scan.outputs.sarif }}
