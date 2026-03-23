@@ -1,7 +1,9 @@
 FROM node:lts-bookworm-slim AS builder
 ARG VERSION="feature/multi-owner"
 ARG COMMIT="492948a"
+ARG HTTPS_PROXY
 
+ENV HTTPS_PROXY=$HTTPS_PROXY
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NX_DAEMON="false"
@@ -21,4 +23,4 @@ FROM node:lts-bookworm-slim
 
 COPY --from=builder /workspace/adc/dist/apps/cli/main.js .
 
-ENTRYPOINT [ "node", "main.js" ]
+ENTRYPOINT ["node", "main.js"]
