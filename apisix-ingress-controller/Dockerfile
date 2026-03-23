@@ -3,9 +3,9 @@ ARG VERSION="feature/multi-owner"
 ARG COMMIT="1162d03"
 
 WORKDIR /workspace
-RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/apisix-ingress-controller && \
-    git reset --hard ${COMMIT} && \
+RUN git clone -b ${VERSION} m && \
     cd ./apisix-ingress-controller && \
+    git reset --hard ${COMMIT} && \
     CGO_ENABLED=0 go build -a -trimpath -ldflags="-s -w" -o ./bin/apisix-ingress-controller ./cmd/main.go
 
 FROM gcr.io/distroless/static-debian12:debug
