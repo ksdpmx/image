@@ -3,7 +3,7 @@ ARG VERSION="feature/multi-owner"
 ARG COMMIT="1162d03"
 
 WORKDIR /workspace
-RUN git clone -b ${VERSION} m && \
+RUN git clone -b ${VERSION} https://github.com/ksdpmx/apisix-ingress-controller && \
     cd ./apisix-ingress-controller && \
     git reset --hard ${COMMIT} && \
     CGO_ENABLED=0 go build -a -trimpath -ldflags="-s -w" -o ./bin/apisix-ingress-controller ./cmd/main.go
