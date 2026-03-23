@@ -1,6 +1,9 @@
 FROM golang:1.26 AS builder
 ARG VERSION="feature/multi-owner"
-ARG COMMIT="a5c1e88"
+ARG COMMIT="45d2b769"
+ARG HTTPS_PROXY
+
+ENV HTTPS_PROXY=$HTTPS_PROXY
 
 WORKDIR /workspace
 RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/apisix-ingress-controller && \
