@@ -1,6 +1,6 @@
 FROM node:lts-bookworm-slim AS builder
 ARG VERSION="feature/multi-owner"
-ARG COMMIT="a3c1165"
+ARG COMMIT="61c1998"
 ARG HTTPS_PROXY
 
 ENV HTTPS_PROXY=$HTTPS_PROXY
