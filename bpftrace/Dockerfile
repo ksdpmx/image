@@ -6,29 +6,32 @@ ARG HTTPS_PROXY
 ENV HTTPS_PROXY=$HTTPS_PROXY
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y \
-    asciidoctor \
-    bpftool \
-    binutils-dev \
-    bison \
-    build-essential \
-    clang \
-    cmake \
-    flex \
-    libbpf-dev \
-    libbpfcc-dev \
-    libcereal-dev \
-    libdw-dev \
-    libelf-dev \
-    libiberty-dev \
-    libpcap-dev \
-    llvm-dev \
-    libclang-dev \
-    libclang-cpp-dev \
-    pahole \
-    xxd \
-    zip \
-    zlib1g-dev
+RUN apt-get update && \
+    apt-get install -y \
+      asciidoctor \
+      bpftool \
+      binutils-dev \
+      bison \
+      build-essential \
+      clang \
+      cmake \
+      flex \
+      libbpf-dev \
+      libbpfcc-dev \
+      libcereal-dev \
+      libdw-dev \
+      libelf-dev \
+      libiberty-dev \
+      libpcap-dev \
+      llvm-dev \
+      libclang-dev \
+      libclang-cpp-dev \
+      pahole \
+      xxd \
+      zip \
+      zlib1g-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
 RUN git clone -b ${VERSION} --depth 1 https://github.com/bpftrace/bpftrace && \
@@ -42,7 +45,7 @@ FROM debian:sid-slim
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
       libbinutils \
       libbpfcc \
       libdw1t64 \
