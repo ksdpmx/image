@@ -7,7 +7,7 @@ ENV HTTPS_PROXY=$HTTPS_PROXY
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
       asciidoctor \
       bpftool \
       binutils-dev \
