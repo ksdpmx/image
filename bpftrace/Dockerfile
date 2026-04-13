@@ -6,9 +6,6 @@ ARG HTTPS_PROXY
 ENV HTTPS_PROXY=$HTTPS_PROXY
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN echo 'Acquire::http::Proxy "http://192.168.50.99:10900/";' >> /etc/apt/apt.conf.d/99proxy && \
-    echo 'Acquire::https::Proxy "http://192.168.50.99:10900/";' >> /etc/apt/apt.conf.d/99proxy
-
 RUN apt-get update && apt-get install -y \
     asciidoctor \
     bpftool \
@@ -43,6 +40,22 @@ RUN git clone -b ${VERSION} --depth 1 https://github.com/bpftrace/bpftrace && \
 FROM debian:sid-slim
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
+
+RUN apt-get update && \
+    apt-get install -y \
+      libbinutils \
+      libbpfcc \
+      libdw1t64 \
+      libclang1-21 \
+      libclang-cpp21 \
+      libllvm21 \
+      zlib1g \
+      libelf1 \
+      libpcap0.8t64 \
+      libstdc++6 \
+      libc6 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /workspace/bpftrace/build/src/bpftrace /app/bpftrace
 
