@@ -1,5 +1,5 @@
 FROM golang:1.26 AS builder
-ARG VERSION="v3.6.8"
+ARG VERSION="v3.6.10"
 
 WORKDIR /workspace
 RUN git clone -b ${VERSION} --depth 1 https://github.com/etcd-io/etcd && \
