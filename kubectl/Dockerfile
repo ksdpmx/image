@@ -2,7 +2,7 @@ FROM docker.io/debian:sid-slim AS kubectl
 
 ARG TARGETARCH
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
-ARG VERSION="v1.34.1"
+ARG VERSION="v1.35.3"
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /
@@ -15,9 +15,9 @@ RUN curl -LO "https://dl.k8s.io/release/${VERSION}/bin/linux/${TARGETARCH}/kubec
   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check && \
   chmod +x kubectl
 
-FROM ghcr.io/ksdpmx/curl:6af1a00 AS curl
+FROM ghcr.io/ksdpmx/curl:69c5861 AS curl
 
-FROM gcr.io/distroless/static-debian12:debug
+FROM gcr.io/distroless/static-debian13:debug
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
