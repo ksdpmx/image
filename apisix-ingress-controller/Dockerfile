@@ -11,7 +11,7 @@ RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/apisix-ingress-c
     git reset --hard ${COMMIT} && \
     CGO_ENABLED=0 go build -a -trimpath -ldflags="-s -w" -o ./bin/apisix-ingress-controller ./cmd/main.go
 
-FROM gcr.io/distroless/static-debian12:debug
+FROM gcr.io/distroless/static-debian13:debug
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
