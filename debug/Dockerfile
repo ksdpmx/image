@@ -25,6 +25,7 @@ LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
 COPY --from=crictl /crictl /usr/local/bin/crictl
 COPY --from=curl /usr/local/bin/curl /usr/local/bin/curl
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -46,7 +47,8 @@ RUN apt-get update && \
     ncat \
     tcpdump \
     traceroute \
-    conntrack && \
+    conntrack \
+    bind9-dnsutils && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
