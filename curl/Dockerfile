@@ -1,8 +1,5 @@
-ARG VERSION="8.16.0"
-
-FROM ghcr.io/ksdpmx/basebuilder:bc6922f AS builder
-
-ARG VERSION
+FROM ghcr.io/ksdpmx/basebuilder:98cfd14 AS builder
+ARG VERSION="8.19.0"
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /root
@@ -85,7 +82,7 @@ RUN apt update && \
       --enable-websockets && \
     make -j$(nproc) CFLAGS="-Os -s" LDFLAGS="-s -static -all-static"
 
-FROM gcr.io/distroless/static-debian12:debug
+FROM gcr.io/distroless/static-debian13:debug
 
 ARG VERSION
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
