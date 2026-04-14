@@ -1,5 +1,7 @@
-FROM ghcr.io/ksdpmx/basebuilder:98cfd14 AS builder
 ARG VERSION="8.19.0"
+
+FROM ghcr.io/ksdpmx/basebuilder:98cfd14 AS builder
+ARG VERSION
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /root
