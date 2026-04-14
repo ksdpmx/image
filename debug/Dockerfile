@@ -2,9 +2,9 @@ FROM docker.io/debian:sid-slim AS crictl
 
 ARG TARGETARCH
 # https://github.com/kubernetes-sigs/cri-tools?tab=readme-ov-file#install
-ARG VERSION="v1.34.0"
-ARG SHA256SUM_AMD64="a8ff2a3edb37a98daf3aba7c3b284fe0aa5bff24166d896ab9ef64c8913c9f51"
-ARG SHA256SUM_ARM64="c31d252e203df5f4cf37f314bd3092eb79087e791631c1e607087c74b6d0423f"
+ARG VERSION="v1.35.0"
+ARG SHA256SUM_AMD64="2e141e5b22cb189c40365a11807d69b76b9b3caced89fac2f4ec879408ce2177"
+ARG SHA256SUM_ARM64="519071de89b64c43e2a1661bb5489c6c3fd5e9e5fcef75e50e542b0c891f1118"
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /
@@ -17,7 +17,7 @@ RUN curl -LO "https://github.com/kubernetes-sigs/cri-tools/releases/download/${V
   | sha256sum -c - && \
   tar zxvf crictl-$VERSION-linux-${TARGETARCH}.tar.gz
 
-FROM ghcr.io/ksdpmx/curl:6af1a00 AS curl
+FROM ghcr.io/ksdpmx/curl:69c5861 AS curl
 
 FROM docker.io/debian:sid-slim
 
