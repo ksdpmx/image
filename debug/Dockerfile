@@ -45,7 +45,6 @@ RUN apt-get update && \
     iputils-ping \
     procps \
     ncat \
-    tcpdump \
     traceroute \
     conntrack \
     bind9-dnsutils && \
