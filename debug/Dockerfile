@@ -47,7 +47,8 @@ RUN apt-get update && \
     ncat \
     traceroute \
     conntrack \
-    bind9-dnsutils && \
+    bind9-dnsutils \
+    tshark dumpcap && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
