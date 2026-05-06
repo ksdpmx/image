@@ -1,3 +1,4 @@
+# 2026-05-06T22:39:14+0800
 FROM docker.io/debian:sid-slim AS crictl
 
 ARG TARGETARCH
