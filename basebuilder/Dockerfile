@@ -1,4 +1,4 @@
-# 2026-04-14
+# 2026-05-06T22:02:05+0800
 FROM docker.io/debian:sid-slim
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
