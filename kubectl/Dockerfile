@@ -1,8 +1,9 @@
+# 2026-05-06T22:00:58+0800
 FROM docker.io/debian:sid-slim AS kubectl
 
 ARG TARGETARCH
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
-ARG VERSION="v1.35.3"
+ARG VERSION="v1.36.0"
 
 SHELL ["/bin/bash", "-c"]
 WORKDIR /
