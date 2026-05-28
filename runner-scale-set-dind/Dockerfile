@@ -23,8 +23,7 @@ RUN set -eux; \
     esac; \
     curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${nodeArch}.tar.xz" \
       | tar -xJ -C /usr/local --strip-components=1; \
-    npm install -g @github/copilot; \
-    ln -sf "$(command -v copilot)" /usr/local/bin/copilot; \
+    npm install -g @github/copilot@1.0.52; \
     apt-get purge -y --auto-remove curl; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*
