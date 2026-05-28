@@ -24,6 +24,16 @@ RUN set -eux; \
     curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${nodeArch}.tar.xz" \
       | tar -xJ -C /usr/local --strip-components=1; \
     npm install -g @github/copilot@1.0.52; \
+    groupadd --gid 1001 awfuser; \
+    useradd \
+      --uid 1001 \
+      --gid 1001 \
+      --create-home \
+      --home-dir /home/awfuser \
+      --shell /bin/bash \
+      awfuser; \
+    mkdir -p /home/awfuser /tmp/gh-aw; \
+    chown -R 1001:1001 /home/awfuser /tmp/gh-aw; \
     apt-get purge -y --auto-remove curl; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*
