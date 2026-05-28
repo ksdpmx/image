@@ -9,9 +9,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DOCKER_VERSION=29.5.2
 ENV DIND_COMMIT=8d9e3502aba39127e4d12196dae16d306f76993d
 
-RUN echo 'Acquire::http::Proxy "http://192.168.50.99:10900/";' >> /etc/apt/apt.conf.d/99proxy && \
-    echo 'Acquire::https::Proxy "http://192.168.50.99:10900/";' >> /etc/apt/apt.conf.d/99proxy
-
 COPY dockerd-entrypoint.sh /usr/local/bin/
 
 RUN set -eux; \
