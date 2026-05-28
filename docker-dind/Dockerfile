@@ -33,7 +33,8 @@ RUN set -eux; \
       ip6tables-save \
       ip6tables-restore \
     ; do \
-      b="$(command -v "${f/tables/tables-legacy}")"; \
+      legacy_f="$(printf '%s\n' "$f" | sed 's/tables/tables-legacy/')"; \
+      b="$(command -v "$legacy_f")"; \
       "$b" --version; \
       ln -svT "$b" "/usr/local/sbin/.iptables-legacy/$f"; \
     done; \
