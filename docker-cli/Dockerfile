@@ -16,9 +16,6 @@ ENV DOCKER_TLS_CERTDIR=/certs
 COPY modprobe.sh /usr/local/bin/modprobe
 COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN echo 'Acquire::http::Proxy "http://192.168.50.99:10900/";' >> /etc/apt/apt.conf.d/99proxy && \
-    echo 'Acquire::https::Proxy "http://192.168.50.99:10900/";' >> /etc/apt/apt.conf.d/99proxy
-
 RUN set -eux; \
     apt-get update; \
     # so far we don't use ssh and git in docker
