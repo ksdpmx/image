@@ -8,7 +8,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV DOCKER_VERSION=29.5.2
 ENV DIND_COMMIT=8d9e3502aba39127e4d12196dae16d306f76993d
-ENV NODE_VERSION=24.11.1
 
 COPY dockerd-entrypoint.sh /usr/local/bin/
 
@@ -48,11 +47,9 @@ RUN set -eux; \
     case "$dpkgArch" in \
       'amd64') \
         dockerArch='x86_64'; \
-        nodeArch='x64'; \
         ;; \
       'arm64') \
         dockerArch='aarch64'; \
-        nodeArch='arm64'; \
         ;; \
       *) echo >&2 "error: unsupported architecture: $dpkgArch"; exit 1 ;; \
     esac; \
@@ -66,8 +63,6 @@ RUN set -eux; \
     curl -fsSL -o '/usr/local/bin/dind' "https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind"; \
     chmod +x /usr/local/bin/dind; \
     chmod +x /usr/local/bin/dockerd-entrypoint.sh; \
-    curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${nodeArch}.tar.xz" \
-      | tar -xJ -C /usr/local --strip-components=1; \
     apt-get purge -y --auto-remove curl; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*
