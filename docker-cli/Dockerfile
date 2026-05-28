@@ -46,7 +46,6 @@ RUN set -eux; \
       --directory /usr/local/bin/ \
       --no-same-owner \
       'docker/docker'; \
-    docker --version; \
     dockerBuildxUrl="https://github.com/docker/buildx/releases/download/v${DOCKER_BUILDX_VERSION}/buildx-v${DOCKER_BUILDX_VERSION}.linux-${dockerBuildxArch}"; \
     curl -fsSL -o 'docker-buildx' "$dockerBuildxUrl"; \
     echo "$dockerBuildxSha256 *"'docker-buildx' | sha256sum -c -; \
