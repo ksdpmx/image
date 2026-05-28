@@ -18,11 +18,26 @@ RUN set -eux; \
       curl \
       e2fsprogs \
       iptables \
+      libcap2-bin \
       openssl \
       pigz \
       uidmap \
       xfsprogs \
       xz-utils; \
+    mkdir -p /usr/local/sbin/.iptables-legacy; \
+    for f in \
+      iptables \
+      iptables-save \
+      iptables-restore \
+      ip6tables \
+      ip6tables-save \
+      ip6tables-restore \
+    ; do \
+      b="$(command -v "${f/tables/tables-legacy}")"; \
+      "$b" --version; \
+      ln -svT "$b" "/usr/local/sbin/.iptables-legacy/$f"; \
+    done; \
+    export PATH="/usr/local/sbin/.iptables-legacy:$PATH"; \
     groupadd --system dockremap; \
     useradd --system --gid dockremap --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin dockremap; \
     echo 'dockremap:165536:65536' >> /etc/subuid; \
