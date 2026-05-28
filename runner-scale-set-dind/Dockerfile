@@ -34,6 +34,7 @@ RUN set -eux; \
       awfuser; \
     mkdir -p /home/awfuser /tmp/gh-aw; \
     chown -R 1001:1001 /home/awfuser /tmp/gh-aw; \
+    chmod 0777 /home/awfuser; \
     apt-get purge -y --auto-remove curl; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*
