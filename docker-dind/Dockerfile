@@ -18,7 +18,6 @@ RUN set -eux; \
       curl \
       e2fsprogs \
       iptables \
-      libcap2-bin \
       openssl \
       pigz \
       uidmap \
