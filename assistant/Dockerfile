@@ -1,8 +1,7 @@
 # 2026-06-02T21:59:19+0800
-
 FROM ghcr.io/ksdpmx/basebuilder:c7ca954 AS builder
 ARG HTTPS_PROXY
-ARG COMMIT="4f3ae880c0a65f9b8ef476a35fd15bd7302a8a10"
+ARG COMMIT="80fdb1bd6fce822ee9eedc8a177fb27bd09697d7"
 
 ENV HTTPS_PROXY=$HTTPS_PROXY
 
@@ -24,6 +23,7 @@ WORKDIR /app
 
 COPY --from=builder /assistant/pyproject.toml ./
 COPY --from=builder /assistant/agent.py ./
-RUN uv sync --no-dev --no-install-project
+COPY --from=builder /assistant/uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
 
 CMD ["uv", "run", "python", "agent.py"]
