@@ -16,7 +16,7 @@ RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/aws-load-balance
     CGO_LDFLAGS="-Wl,-z,relro,-z,now" \
     go build -buildmode=pie -tags 'osusergo,netgo,static_build' -ldflags="-s -w -linkmode=external -extldflags '-static-pie' -X ${VERSION_PKG}.GitVersion=${GIT_VERSION} -X ${VERSION_PKG}.GitCommit=${GIT_COMMIT} -X ${VERSION_PKG}.BuildDate=${BUILD_DATE}" -a -o /controller main.go
 
-FROM gcr.io/distroless/static-debian13:debug
+FROM gcr.io/distroless/static-debian13:debug-nonroot
 
 LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
