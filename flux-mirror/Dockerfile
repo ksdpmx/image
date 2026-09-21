@@ -1,9 +1,9 @@
 # 2026-09-21T16:45:00+0800
 FROM golang:1.26 AS builder
-ARG VERSION="v0.8.0"
+ARG VERSION="feat/legacy-cosign-signature-fallback"
 
 WORKDIR /workspace
-RUN git clone -b ${VERSION} --depth 1 https://github.com/fluxcd/flux-mirror && \
+RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/flux-mirror && \
     cd ./flux-mirror && \
     CGO_ENABLED=0 go build -ldflags="-s -w" -a -o flux-mirror ./cmd/flux-mirror/
 
