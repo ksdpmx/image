@@ -9,7 +9,7 @@ RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/flux-mirror && \
 
 FROM gcr.io/distroless/static-debian13:debug
 
-LABEL org.opencontainers.image.source "https://github.com/ksdpmx/image"
+LABEL org.opencontainers.image.source="https://github.com/ksdpmx/image"
 
 COPY --from=builder /workspace/flux-mirror/flux-mirror /usr/local/bin/flux-mirror
 
