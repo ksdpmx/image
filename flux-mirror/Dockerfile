@@ -1,6 +1,6 @@
 # 2026-09-22T16:23:38+0800
 FROM golang:1.26 AS builder
-ARG VERSION="feat/legacy-cosign-signature-fallback"
+ARG VERSION="4e860fc3cfeed83709ddbd560c35c3a31c7f3896"
 
 WORKDIR /workspace
 RUN git clone -b ${VERSION} --depth 1 https://github.com/ksdpmx/flux-mirror && \
