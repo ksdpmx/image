@@ -1,4 +1,4 @@
-# 2026-09-22T14:31:16+0800
+# 2026-09-22T16:23:38+0800
 FROM golang:1.26 AS builder
 ARG VERSION="feat/legacy-cosign-signature-fallback"
 
