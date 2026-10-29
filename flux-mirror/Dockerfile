@@ -1,6 +1,6 @@
 # 2026-09-22T16:23:38+0800
 FROM golang:1.27 AS builder
-ARG VERSION="4729defd3473db839b2717d6faeca3fdfb1f2901"
+ARG VERSION="c66dccea2d7dae83686ef55017d6782238c6e0b5"
 
 WORKDIR /workspace
 RUN git clone https://github.com/ksdpmx/flux-mirror && \
